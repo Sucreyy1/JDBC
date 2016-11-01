@@ -1,12 +1,11 @@
 package services;
 
 import java.lang.reflect.Field;
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import annotation.Column;
 import annotation.ID;
@@ -15,12 +14,27 @@ import entity.UserDAO;
 
 public class CreateSql {
 
+	static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		UserDAO userDAO = new UserDAO();
-		userDAO.setName("张三");
-		userDAO.setSex("1");
-		userDAO.setTel("110");
-		new CreateSql().createSQL(userDAO);
+		while(true){
+			UserDAO userDAO = new UserDAO();
+			System.out.println("-------请输入信息--------");
+			System.out.print("姓名：");
+			String name = sc.next();
+			userDAO.setName(name);
+			System.out.print("性别：");
+			String sex = sc.next();
+			userDAO.setSex(sex);
+			System.out.print("电话：");
+			String tel = sc.next();
+			userDAO.setTel(tel);
+			new CreateSql().createSQL(userDAO);
+			System.out.println("保存成功....Y[继续添加]");
+			String next = sc.next();
+			if(!next.equalsIgnoreCase("y")){
+				return;
+			}
+		}
 	}
 
 	public void createSQL(UserDAO userDAO) {
